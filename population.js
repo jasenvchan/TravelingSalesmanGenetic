@@ -30,7 +30,7 @@ class Population {
 		});
 
 		// this.chromosomes.forEach(c => {
-		// 	console.log(c.fitness);
+		// 	console.log("before ", c.genes);
 		// });
 
 		// kill bot 50%
@@ -43,31 +43,49 @@ class Population {
 
 		for (let i = 1; i <= end; i += 2) {
 			this.chromosomes.push(
-				this.chromosomes[i].makeOffspring(this.chromosomes[i - 1])
+				this.updateFitness(
+					this.chromosomes[i].makeOffspring(this.chromosomes[i - 1])
+				)
 			);
 			this.chromosomes.push(
-				this.chromosomes[i - 1].makeOffspring(this.chromosomes[i])
+				this.updateFitness(
+					this.chromosomes[i - 1].makeOffspring(this.chromosomes[i])
+				)
 			);
 		}
+
+		// this.chromosomes.forEach(c => {
+		// 	console.log("after: ", c.genes);
+		// });
+	}
+
+	getAverageFitness() {
+		let count = 0;
+		for (let i of this.chromosomes) count += i.fitness;
+
+		return count / this.chromosomes.length;
+	}
+
+	updateFitness(currC) {
+		let totalDist = distance(this.parentMap.startingCity, currC.genes[0]);
+
+		for (let j = 0; j < currC.genes.length - 1; j++) {
+			totalDist += distance(currC.genes[j], currC.genes[j + 1]);
+		}
+
+		totalDist += distance(
+			this.parentMap.startingCity,
+			currC.genes[currC.genes.length - 1]
+		);
+		currC.fitness = totalDist;
+
+		return currC;
 	}
 
 	// evaluate fitness of given chromosome and updates chromosome.fitness to reflect - O(nm) where n is # chromosomes, m is # genes
-	evaluateFitness() {
-		let totalDist, currC;
+	evaluatePopulationFitness() {
 		for (let i = 0; i < this.chromosomes.length; i++) {
-			currC = this.chromosomes[i];
-
-			totalDist = distance(this.parentMap.startingCity, currC.genes[0]);
-
-			for (let j = 0; j < currC.genes.length - 1; j++) {
-				totalDist += distance(currC.genes[j], currC.genes[j + 1]);
-			}
-
-			totalDist += distance(
-				this.parentMap.startingCity,
-				currC.genes[currC.genes.length - 1]
-			);
-			currC.fitness = totalDist;
+			this.updateFitness(this.chromosomes[i]);
 		}
 		// this.chromosomes.forEach(c => {
 		// 	console.log(c.fitness);

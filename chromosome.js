@@ -1,4 +1,4 @@
-const { shuffle, swap } = require("./helper");
+const { shuffle, swap, distance } = require("./helper");
 
 class Chromosome {
 	constructor(genePool, randomized = true) {
@@ -20,7 +20,7 @@ class Chromosome {
 	// evaluateFitness() {}
 
 	// returns an offspring of this Chromosome and another Chromosome (parentB)
-	makeOffspring(parentB, mutationRate = 0.01) {
+	makeOffspring(parentB, mutationRate = 0.2) {
 		// 2 - n-1 where n is length of array
 		const randLength =
 			2 + Math.floor(Math.random() * (this.genes.length - 3));
