@@ -5,8 +5,7 @@ class CitiesMap {
 	constructor(width, height, numCities = 0) {
 		this.width = width;
 		this.height = height;
-		this.cityCount = numCities;
-		this.cities = this.makeRandomMap(this.cityCount);
+		this.cities = this.makeRandomMap(numCities);
 		this.startingCity = this.cities[0];
 	}
 
