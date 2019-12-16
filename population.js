@@ -15,7 +15,28 @@ class Population {
 		return ret;
 	}
 
-	makeNextGeneration() {}
+	sortByFitness(chromA, chromB) {
+		if (chromA.fitness > chromB.fitness) return -1;
+		if (chromA.fitness < chromB.fitness) return 1;
+		else return 0;
+	}
+
+	makeNextGeneration() {
+		// sort by fitness
+		this.chromosomes.sort(function(chromA, chromB) {
+			if (chromA.fitness > chromB.fitness) return -1;
+			if (chromA.fitness < chromB.fitness) return 1;
+			else return 0;
+		});
+
+		// kill bot 50%
+		this.chromosomes.splice(
+			Math.floor(this.chromosomes.length / 2),
+			Math.ceil(this.chromosomes.length / 2)
+		);
+
+		console.log(this.chromosomes.length);
+	}
 
 	// evaluate fitness of given chromosome and updates chromosome.fitness to reflect - O(nm) where n is # chromosomes, m is # genes
 	evaluateFitness() {

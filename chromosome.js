@@ -20,7 +20,41 @@ class Chromosome {
 	// evaluateFitness() {}
 
 	// returns an offspring of this Chromosome and another Chromosome (parentB)
-	makeOffspring(parentB, mutationRate = 0.01) {}
+	makeOffspring(parentB, mutationRate = 0.01) {
+		console.log(this.genes);
+		console.log(parentB.genes);
+		// 2 - n-1 where n is length of array
+		const randLength =
+			2 + Math.floor(Math.random() * (this.genes.length - 3));
+		//
+		const randStart = Math.floor(
+			Math.random() * (this.genes.length - randLength)
+		);
+
+		let transfer = new Set();
+		let offspring = [];
+		let place = 0;
+
+		for (let i = 0; i < randLength; i++) {
+			transfer.add(this.genes[randStart + i]);
+		}
+
+		console.log(transfer);
+
+		while (offspring.length < this.genes.length) {
+			if (offspring.length === randStart) {
+				transfer.forEach(gene => {
+					offspring.push(gene);
+				});
+			}
+			if (!transfer.has(parentB.genes[place])) {
+				offspring.push(parentB.genes[place]);
+				place++;
+			} else place++;
+		}
+
+		return offspring;
+	}
 }
 
 module.exports = Chromosome;
