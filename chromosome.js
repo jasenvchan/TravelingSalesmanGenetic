@@ -1,8 +1,8 @@
-const { shuffle, distance } = require("./helper");
+const { shuffle, swap } = require("./helper");
 
 class Chromosome {
-	constructor(genePool) {
-		this.genes = this.getRandomGenes(genePool);
+	constructor(genePool, randomized = true) {
+		this.genes = randomized ? this.getRandomGenes(genePool) : genePool;
 		this.fitness = 0;
 	}
 
@@ -21,8 +21,6 @@ class Chromosome {
 
 	// returns an offspring of this Chromosome and another Chromosome (parentB)
 	makeOffspring(parentB, mutationRate = 0.01) {
-		console.log(this.genes);
-		console.log(parentB.genes);
 		// 2 - n-1 where n is length of array
 		const randLength =
 			2 + Math.floor(Math.random() * (this.genes.length - 3));
@@ -32,25 +30,32 @@ class Chromosome {
 		);
 
 		let transfer = new Set();
-		let offspring = [];
+		let offspring = new Chromosome([], false);
 		let place = 0;
 
 		for (let i = 0; i < randLength; i++) {
 			transfer.add(this.genes[randStart + i]);
 		}
 
-		console.log(transfer);
-
-		while (offspring.length < this.genes.length) {
-			if (offspring.length === randStart) {
+		while (offspring.genes.length < this.genes.length) {
+			if (offspring.genes.length === randStart) {
 				transfer.forEach(gene => {
-					offspring.push(gene);
+					offspring.genes.push(gene);
 				});
 			}
 			if (!transfer.has(parentB.genes[place])) {
-				offspring.push(parentB.genes[place]);
+				offspring.genes.push(parentB.genes[place]);
 				place++;
 			} else place++;
+		}
+
+		// random mutation chance
+		if (Math.random() <= mutationRate) {
+			swap(
+				offspring.genes,
+				Math.floor(Math.random() * offspring.genes.length),
+				Math.floor(Math.random() * offspring.genes.length)
+			);
 		}
 
 		return offspring;

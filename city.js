@@ -1,7 +1,7 @@
 class City {
-	constructor(maxWidth, maxHeight) {
-		this.x = Math.floor(Math.random() * maxWidth);
-		this.y = Math.floor(Math.random() * maxHeight);
+	constructor(maxWidth, maxHeight, test = false) {
+		this.x = !test ? Math.floor(Math.random() * maxWidth) : maxWidth;
+		this.y = !test ? Math.floor(Math.random() * maxHeight) : maxHeight;
 	}
 }
 

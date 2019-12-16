@@ -1,20 +1,27 @@
 const Population = require("./population");
 const CitiesMap = require("./CitiesMap");
 
-const numCities = 7;
+const numCities = 25;
 
 let allCities = new CitiesMap(600, 400, numCities);
-let currPop = new Population(50, allCities);
+let currPop = new Population(20, allCities);
 
 // console.log(allCities);
 // console.log(currPop);
 
-currPop.evaluateFitness();
+console.log(allCities.cities);
 
-currPop.makeNextGeneration();
+for (let i = 0; i < 200; i++) {
+	console.log(currPop.chromosomes[0].fitness);
+	currPop.evaluateFitness();
 
-currPop.chromosomes[0].makeOffspring(currPop.chromosomes[1]);
-currPop.chromosomes[1].makeOffspring(currPop.chromosomes[0]);
+	// console.log(currPop.chromosomes);
+
+	currPop.makeNextGeneration();
+}
+
+// console.log(currPop.chromosomes);
+// }
 
 // currPop.chromosomes.forEach(chromosome => {
 // 	console.log(chromosome);

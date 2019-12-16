@@ -18,6 +18,19 @@ class CitiesMap {
 		}
 
 		return ret;
+
+		// let ret = [];
+
+		// ret.push(new City(0, 0));
+		// ret.push(new City(0, 100));
+		// ret.push(new City(0, 200));
+		// ret.push(new City(100, 200));
+		// ret.push(new City(200, 200));
+		// ret.push(new City(200, 100));
+		// ret.push(new City(200, 0));
+		// ret.push(new City(100, 0));
+
+		// return ret;
 	}
 }
 

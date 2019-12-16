@@ -24,10 +24,14 @@ class Population {
 	makeNextGeneration() {
 		// sort by fitness
 		this.chromosomes.sort(function(chromA, chromB) {
-			if (chromA.fitness > chromB.fitness) return -1;
-			if (chromA.fitness < chromB.fitness) return 1;
+			if (chromA.fitness > chromB.fitness) return 1;
+			if (chromA.fitness < chromB.fitness) return -1;
 			else return 0;
 		});
+
+		// this.chromosomes.forEach(c => {
+		// 	console.log(c.fitness);
+		// });
 
 		// kill bot 50%
 		this.chromosomes.splice(
@@ -35,7 +39,16 @@ class Population {
 			Math.ceil(this.chromosomes.length / 2)
 		);
 
-		console.log(this.chromosomes.length);
+		let end = this.chromosomes.length;
+
+		for (let i = 1; i <= end; i += 2) {
+			this.chromosomes.push(
+				this.chromosomes[i].makeOffspring(this.chromosomes[i - 1])
+			);
+			this.chromosomes.push(
+				this.chromosomes[i - 1].makeOffspring(this.chromosomes[i])
+			);
+		}
 	}
 
 	// evaluate fitness of given chromosome and updates chromosome.fitness to reflect - O(nm) where n is # chromosomes, m is # genes
@@ -43,6 +56,7 @@ class Population {
 		let totalDist, currC;
 		for (let i = 0; i < this.chromosomes.length; i++) {
 			currC = this.chromosomes[i];
+
 			totalDist = distance(this.parentMap.startingCity, currC.genes[0]);
 
 			for (let j = 0; j < currC.genes.length - 1; j++) {
@@ -55,6 +69,10 @@ class Population {
 			);
 			currC.fitness = totalDist;
 		}
+		// this.chromosomes.forEach(c => {
+		// 	console.log(c.fitness);
+		// 	console.log(c.genes);
+		// });
 	}
 }
 

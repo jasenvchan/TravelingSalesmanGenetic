@@ -22,8 +22,15 @@ function shuffle(array) {
 // calculate the distance between two cities
 function distance(cityA, cityB) {
 	let xDist = (cityB.x - cityA.x) * (cityB.x - cityA.x);
-	let yDist = (cityB.y - cityB.y) * (cityB.y - cityB.y);
+	let yDist = (cityB.y - cityA.y) * (cityB.y - cityA.y);
+
 	return Math.sqrt(xDist + yDist);
 }
 
-module.exports = { shuffle, distance };
+function swap(arr, a, b) {
+	let temp = arr[a];
+	arr[a] = arr[b];
+	arr[b] = temp;
+	return arr;
+}
+module.exports = { shuffle, distance, swap };
