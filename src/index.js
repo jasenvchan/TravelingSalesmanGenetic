@@ -44,15 +44,18 @@ mapboxgl.accessToken =
 
 const map = new mapboxgl.Map({
 	container: "map",
-	center: [-75.001, 40.001], //[-74.009, 40.705], // FullStack NY coordinates; alternatively, use [-87.6354, 41.8885] for Chicago
-	zoom: 0, // starting zoom
+	center: [-112.027, 46.5958], //[-74.009, 40.705], // FullStack NY coordinates; alternatively, use [-87.6354, 41.8885] for Chicago
+	zoom: 3, // starting zoom
 	style: "mapbox://styles/mapbox/streets-v10" // mapbox has lots of different map styles available.
 });
 
 const makeMarker = require("./marker.js");
 
 for (let city of allCities.cities) {
-	const marker = makeMarker("Activity", [city.y, city.x]);
+	const marker = makeMarker(city.isStartingCity ? "Hotel" : "Activity", [
+		city.y,
+		city.x
+	]);
 	marker.addTo(map);
 }
 
