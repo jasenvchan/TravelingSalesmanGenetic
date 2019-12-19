@@ -8,5 +8,9 @@ module.exports = {
 		filename: "bundle.js" // the name of the file that will contain our output - we could name this whatever we want, but bundle.js is typical
 	},
 	target: "node",
-	externals: [nodeExternals()]
+	externals: [
+		nodeExternals({
+			whitelist: ["mapbox-gl"]
+		})
+	]
 };

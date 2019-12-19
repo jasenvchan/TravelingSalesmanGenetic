@@ -2,8 +2,10 @@ const { canvas, context } = require("./");
 
 class City {
 	constructor(maxWidth, maxHeight, startingCity = false, test = false) {
-		this.x = !test ? Math.floor(Math.random() * maxWidth) : maxWidth;
-		this.y = !test ? Math.floor(Math.random() * maxHeight) : maxHeight;
+		// this.x = !test ? Math.floor(Math.random() * maxWidth) : maxWidth;
+		// this.y = !test ? Math.floor(Math.random() * maxHeight) : maxHeight;
+		this.x = !test ? -90 + Math.floor(Math.random() * 180) : maxWidth;
+		this.y = !test ? -180 + Math.floor(Math.random() * 260) : maxHeight;
 		this.isStartingCity = startingCity;
 	}
 
