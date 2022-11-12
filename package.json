@@ -19,7 +19,7 @@
   "homepage": "https://github.com/jasenvchan/TravelingSalesmanGenetic#readme",
   "devDependencies": {
     "webpack": "^4.41.3",
-    "webpack-cli": "^3.3.10"
+    "webpack-cli": "^3.3.12"
   },
   "dependencies": {
     "fs": "0.0.1-security",
